@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Serilog_Demo
+namespace Serilog.Demo
 {
     public class Startup
     {
@@ -27,6 +27,7 @@ namespace Serilog_Demo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +40,7 @@ namespace Serilog_Demo
 
             app.UseHttpsRedirection();
 
-            app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging(); // 使用Serilog请求日志中间件
 
             app.UseRouting();
 

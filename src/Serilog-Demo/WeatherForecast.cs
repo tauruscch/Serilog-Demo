@@ -1,6 +1,6 @@
 using System;
 
-namespace Serilog_Demo
+namespace Serilog.Demo
 {
     public class WeatherForecast
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Serilog_Demo.Controllers
+namespace Serilog.Demo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -27,6 +27,7 @@ namespace Serilog_Demo.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             _logger.LogInformation("Hello world");
+
             var rng = new Random();
             var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -35,8 +36,19 @@ namespace Serilog_Demo.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-            _logger.LogInformation("result: {@result}", result);
-            _logger.LogError(new Exception("未知异常"),"error11");
+
+            _logger.LogInformation("result: {@result}", result); // 自动序列化对象
+
+            try
+            {
+                var a = 0;
+                var b = 1 / a;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception");
+            }
+
             return result;
         }
     }
